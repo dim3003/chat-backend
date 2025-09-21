@@ -1,10 +1,8 @@
 using SignalRChat.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
-
 builder.Services.AddSignalR();
 
+var app = builder.Build();
 app.MapHub<ChatHub>("/chatHub");
-
 app.Run();
