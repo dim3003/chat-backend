@@ -4,8 +4,14 @@ namespace SignalRChat.Hubs;
 
 public class ChatHub : Hub
 {
-    public async Task SendMessage(string user, string message)
+    private static List<Message> messages = new List<Message>();
+
+    public async Task SendMessage(string user, string text)
     {
-        await Clients.All.SendAsync("ReceiveMessage", user, message);
+        var msg = new Message { User = user, Text = text, Timestamp = DateTime.UtcNow };
+        messages.Add(msg);
+        await Clients.All.SendAsync("ReceiveMessage", msg.User, msg.Text, msg.Timestamp);
     }
+
+    public List<Message> GetAllMessages() => messages;
 }
