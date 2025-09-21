@@ -9,7 +9,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy  =>
                       {
-                          policy.WithOrigins("http://localhost:5173")
+                          policy.WithOrigins(
+                              "https://agreeable-forest-053c68403.1.azurestaticapps.net",
+                              "http://localhost:5173")
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials();
