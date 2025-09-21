@@ -8,6 +8,13 @@ public class ChatHub : Hub
 
     public async Task SendMessage(string user, string text)
     {
+        if (text == "/clear")
+        {
+            messages.Clear();
+            await Clients.All.SendAsync("ClearMessages"); 
+            return;
+        }
+
         var msg = new Message { User = user, Text = text, Timestamp = DateTime.UtcNow };
         messages.Add(msg);
         await Clients.All.SendAsync("ReceiveMessage", msg.User, msg.Text, msg.Timestamp);
